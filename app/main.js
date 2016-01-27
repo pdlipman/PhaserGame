@@ -8,19 +8,20 @@ var IndexRoute = require('react-router').IndexRoute;
 var MenuBar = require('./components/navigation/menubar.js');
 var menuData = require('./components/navigation/menudata.json');
 
-var GameContent = require('./game/game.js');
+// var GameContent = require('./game/game.js');
+var RandomDungeon = require('./game/game2.js');
 
 const App = React.createClass({
     render: function () {
         return (
             <div>
-                <nav className='light-blue darken-1'
-                     role='navigation'>
+                <nav className="light-blue darken-1"
+                     role="navigation">
                     <MenuBar
                         items={menuData}/>,
                 </nav>
                 <div
-                    className='container'>
+                    className="container">
                     {this.props.children}
                 </div>
             </div>
@@ -47,7 +48,7 @@ const About = React.createClass({
 const Game = React.createClass({
     render: function() {
         return (
-            <GameContent width={800} height={600} />
+            <RandomDungeon width={800} height={600} />
         );
     }
 });
