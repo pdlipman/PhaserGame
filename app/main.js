@@ -8,8 +8,7 @@ var IndexRoute = require('react-router').IndexRoute;
 var MenuBar = require('./components/navigation/menubar.js');
 var menuData = require('./components/navigation/menudata.json');
 
-// var GameContent = require('./game/game.js');
-var RandomDungeon = require('./game/game2.js');
+var GameContent = require('./game/game2.js');
 
 const App = React.createClass({
     render: function () {
@@ -48,7 +47,7 @@ const About = React.createClass({
 const Game = React.createClass({
     render: function() {
         return (
-            <RandomDungeon width={800} height={600} />
+            <GameContent width={720} height={720} />
         );
     }
 });
