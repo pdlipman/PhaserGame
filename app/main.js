@@ -8,7 +8,8 @@ var IndexRoute = require('react-router').IndexRoute;
 var MenuBar = require('./components/navigation/menubar.js');
 var menuData = require('./components/navigation/menudata.json');
 
-var GameContent = require('./game/game2.js');
+//var GameContent = require('./game/game2.js');
+var GameContent = require('./game/game-main.js');
 
 const App = React.createClass({
     render: function () {

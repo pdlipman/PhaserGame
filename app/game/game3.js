@@ -30,7 +30,7 @@ var SpriteDungeon = new React.createClass({
 
                 game.world.setBounds(0, 0, 1920, 1920);
 
-                walls = this.game.add.group();
+                walls = game.add.group();
                 walls.enableBody = true;
             },
 			update: function() {}
@@ -39,6 +39,13 @@ var SpriteDungeon = new React.createClass({
         game.state.add('generate', generateState);
         game.state.start('generate');
 	},
+    createRooms: function () {
+        for (var i = 0; i < roomCount; i++) {
+            var room = new getRoom(game);
+            rooms.push(new Phaser.Rectangle(room.x(), room.y(), room.width(), room.height()));
+            roomGraphics.push(game.add.graphics(room.x(), room.y()));
+        }
+    },
     componentDidMount: function () {
         this.createGame(this.props.width, this.props.height);
     }

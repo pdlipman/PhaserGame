@@ -32,17 +32,8 @@ var lines = [];
 var subRooms = [];
 
 function getRandomInt(min, max) {
-
     var double = rngPM() / n;
     double = Math.pow(Math.random(), 2);
-
-    //var double = Math.pow(Math.random(), 2);
-
-    //return Math.round(min + ((max - min) * this.nextDouble()));
-    //return Math.floor(Math.random() * (max - min + 1)) + min;
-
-    //console.log('double: ' + double);
-    //console.log('result: ' + (Math.floor(min + ((max - min) * double))));
 
     return Math.floor(min + ((max - min) * double));
 }
@@ -53,7 +44,6 @@ function rngPM() {
 }
 
 function getRoom(game) {
-
     var ratio = 0;
     var width;
     var height;
@@ -209,21 +199,10 @@ var RandomDungeon = React.createClass({
         var iter = 0;
 
         for (var i = 0; i < rooms.length && i < 300; i++) {
-            //console.log('rooms x: ' + rooms[i].x + ' y: ' + rooms[i].y)
             for (var j = 0; j < lines.length && j < 300; j++) {
-                //console.log('lines x: ' + lines[j].x + ' y: ' + lines[j].y)
-
-                //var left = lines[j].left;
-                //var right = lines[j].right;
-                //var top = lines[j].top;
-                //var bottom = lines[j].bottom;
-
                 var iter = 0;
-                //if (intersection2(rooms[i], lines[j])) {
-                //if (iter < 300 && rooms[i] != null && lines[j] != null && Phaser.Rectangle.intersects(rooms[i], lines[j])) {
                 if (rooms[i].intersects(lines[j]) || lines[j].intersects(rooms[i])) {
                     iter++;
-                    //console.log('intersects: ' + iter);
                     subRooms.push(rooms[i]);
                     if (rooms[i].width * rooms[i].height <= minRoomArea) {
 
@@ -278,18 +257,8 @@ var RandomDungeon = React.createClass({
             }
 
         }
-        //console.log(phaserLine2);
-        //console.log(phaserLine);
         lines.push(phaserLine);
         lines.push(phaserLine2);
-        // line.beginFill(0x00FF00);
-        // line.lineStyle(2, 0xffd900, 1);
-        //line.moveTo(roomA.centerX,roomA.centerY);
-        //line.lineTo(phaserLine.right, phaserLine.bottom);
-
-        //line.lineTo(phaserLine2.right, phaserLine2.bottom);
-        //line.lineTo(roomB.centerX, roomB.centerY);
-        //line.endFill();
     },
     relativeNeighborhoodGraph() {
 
@@ -315,10 +284,6 @@ var RandomDungeon = React.createClass({
                     var dik = distanceFrom(mainRooms[i], mainRooms[k]);
                     var djk = distanceFrom(mainRooms[j], mainRooms[k]);
 
-                    //console.log('dij: ' + dij);
-                    //console.log('dik: ' + dik);
-                    //console.log('djk: ' + djk);
-
                     if (dij >= Math.max(dik, djk)) {
                         skip = true;
                         break;
@@ -327,7 +292,6 @@ var RandomDungeon = React.createClass({
 
                 if (!skip) {
                     edges.push([i, j]);
-                    //this.drawLine(mainRooms[i], mainRooms[j]);
                 }
             }
         }
@@ -345,10 +309,7 @@ var RandomDungeon = React.createClass({
             for (var j = 0; j < rooms.length; j++) {
                 if (i != j) {
                     var roomB = rooms[j];
-
-
                     if (Phaser.Rectangle.intersects(roomA, roomB)) {
-                        //if (roomA.intersects(roomB)) {
                         dx = dx + Math.floor(roomA.x - roomB.x);
                         dy = dy + Math.floor(roomA.y - roomB.y);
                         neighborCount++;
