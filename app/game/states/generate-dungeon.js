@@ -3,59 +3,67 @@
  */
 'use strict';
 
-function GenerateDungeon() {
-}
-
 var roomCount = 120;
+
 var rooms = [];
 var mainRooms = [];
 var subRooms = [];
 var hallRooms = [];
-
 var edges = [];
+
 var lines = [];
-
 var sizeMultiplier = 1;
-var padding = 200;
 
+var padding = 200;
 var minRoomArea = 6400;
 
 // rng
 //var seed = Date.now();
+
 var seed = 12345;
 var g = 16807;
 var n = 2147483647;
-
 var cursors;
 
 // relative neighborhood graph
 var drawGraph = false;
-var graphFinished = false;
 
+var graphFinished = false;
 var tileSize = 16;
 
 var map = [];
 
+var finalMap = [];
+var levels = [];
 var mapLowX = 999999;
+
 var mapHighX = 0;
 var mapLowY = 999999;
 var mapHighY = 0;
-
 var lineTint = '#00FF00';
+
 var roomTint = '#374140';
 var subRoomTint = '#dc3522';
-
 var mapArrayPadding = 3;
 
+function GenerateDungeon() {
+}
+
 GenerateDungeon.prototype = {
+    getLevels: function () {
+        return this.mainLevels;
+    },
+    getInitialState: function() {
+        return {
+            mainLevels: []
+        };
+    },
+
+    setActiveMenuItem: function(uid) {
+        this.setState({mainLevels: levels});
+    },
+
     preload: function () {
-        var assetDirectory = 'app/game/assets/';
-
-        var wallAsset = 'wall.png';
-        var skyAsset = 'sky.png';
-
-        this.load.image('wall', assetDirectory + wallAsset);
-        this.load.image('sky', assetDirectory + skyAsset);
 
     },
     create: function () {
@@ -122,6 +130,10 @@ GenerateDungeon.prototype = {
         }
     },
     arrayToCsv: function (array, char, tint) {
+
+        var width = [];
+        var height = [];
+
         for (var i = 0; i < array.length; i++) {
 
             var x1 = array[i].x / tileSize;
@@ -164,7 +176,7 @@ GenerateDungeon.prototype = {
         console.log('width: ' + (this.world.width / tileSize));
         console.log('height: ' + (this.world.height / tileSize));
         for (var i = 0; i < this.world.height / tileSize; i++) {
-            var columns = Array.apply(null, Array(this.world.width / tileSize)).map(String.prototype.valueOf, '.');
+            var columns = Array.apply(null, Array(this.world.width / tileSize)).map(String.prototype.valueOf, '0');
             map[i] = (columns);
         }
 
@@ -187,18 +199,30 @@ GenerateDungeon.prototype = {
         }
 
         for (var i = mapLowY; i < mapHighY; i++) {
+            var rowMap = [];
             for (var j = mapLowX; j < mapHighX; j++) {
+                rowMap.push(map[i][j]);
                 output = output + map[i][j] + ',';
             }
+
+            finalMap.push(rowMap);
+
             output += '\n';
         }
 
-        console.log('mapLowX: ' + mapLowX);
-        console.log('mapHighX: ' + mapHighX);
-        console.log('mapLowY: ' + mapLowY);
-        console.log('mapHighY: ' + mapHighY);
+        levels.push(finalMap);
+
+        this.mainLevels = levels;
+
+
+        //console.log(this.mainLevels);
+        //console.log('mapLowX: ' + mapLowX);
+        //console.log('mapHighX: ' + mapHighX);
+        //console.log('mapLowY: ' + mapLowY);
+        //console.log('mapHighY: ' + mapHighY);
 
         console.log('output: ' + output);
+        //console.log(finalMap);
 
     },
     getSubRooms: function () {
@@ -474,6 +498,7 @@ function generateRoomDimensions(game) {
     };
 
 }
+
 // TODO: pull this out into it's own object
 function getRandomInt(min, max) {
     var double = randomNumberGenerator() / n;

@@ -45,11 +45,18 @@ const About = React.createClass({
     }
 });
 
-const Game = React.createClass({
+const Game = new React.createClass({
     render: function() {
         return (
-            <GameContent width={720} height={720} />
+            <GameContent
+                width={720}
+                height={720}>
+            </GameContent>
+
         );
+    },
+    componentWillUnmount: function () {
+        $('canvas').remove();
     }
 });
 
@@ -64,10 +71,10 @@ const NoMatch = React.createClass({
 ReactDOM.render((
     <Router>
         <Route path="/" component={App}>
-            <IndexRoute component={Index} />
+            <IndexRoute component={Game} />
             <Route path="about" component={About} />
             <Route path="game" component={Game} />
-            <Route path="*" component={NoMatch}/>
+            <Route path="*" component={Game}/>
 
         </Route>
     </Router>

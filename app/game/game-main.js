@@ -3,8 +3,10 @@
  */
 'use strict';
 var React = require('react');
-var GenerateDungeonState = require('./states/generate-dungeon');
+var PreloaderState = require('./states/preloader');
 
+//var Phaser = require('./phaser/phaser.js');
+var game = null;
 var Game = new React.createClass({
     render: function () {
         return (
@@ -12,17 +14,23 @@ var Game = new React.createClass({
                 className="gameMain"
                 id="gameMain">
             </div>
+
         );
     },
-    createGame: function(width, height) {
-        var game = new Phaser.Game(width, height, Phaser.AUTO, 'gameMain');
+    createGame: function (width, height) {
+        game = new Phaser.Game(width, height, Phaser.AUTO, 'gameMain');
 
-        game.state.add('generate', GenerateDungeonState);
-        game.state.start('generate');
+        game.state.add('preloader', PreloaderState);
+
+        //var pro = new PreloaderState();
+        //alert(pro.test());
+
+        game.state.start('preloader');
     },
     componentDidMount: function () {
         this.createGame(this.props.width, this.props.height);
     }
+
 });
 
 module.exports = Game;
