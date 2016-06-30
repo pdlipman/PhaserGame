@@ -8,17 +8,19 @@ var layer;
 var fireRate = 110;
 var nextFire = 0;
 
-function World(levels) {
+var tileSize = 128;
+
+function World() {
 }
 
 World.prototype = {
-    preload: function() {
+    preload: function () {
         var assetDirectory = 'app/game/assets/';
 
         this.load.tilemap('testmap', assetDirectory + 'maps/test.csv', null, Phaser.Tilemap.CSV);
     },
-    create: function() {
-        map = this.add.tilemap('testmap',64,64);
+    create: function () {
+        map = this.add.tilemap('testmap', tileSize, tileSize);
 
         map.setCollision(0);
         layer = map.createLayer(0);
@@ -30,7 +32,6 @@ World.prototype = {
 
         for (var y = 0; y < map.layers[0].data.length; y++) {
             for (var x = 0; x < map.layers[0].data[y].length; x++) {
-                console.log('x: ' + x + ' y: ' + y + ' value: ' + map.layers[0].data[y][x].index);
                 if (map.layers[0].data[y][x].index !== 0) {
                     if (x < minX) {
                         minX = x;
@@ -42,11 +43,7 @@ World.prototype = {
             }
         }
 
-        console.log('x: ' + minX + ' y: ' + maxY);
-        console.log(map.layers[0].data.length);
-        console.log(map.layers[0].data[0].length);
-
-        player = this.game.add.sprite(minX * 64 + 32, maxY * 64 + 32, 'dude');
+        player = this.game.add.sprite(minX * tileSize + 32, maxY * tileSize + 32, 'dude');
         this.physics.arcade.enable(player);
         player.body.bounce.y = 0.0;
         player.body.gravity.y = 0;
@@ -59,7 +56,7 @@ World.prototype = {
         bullets.enableBody = true;
         bullets.physicsBodyType = Phaser.Physics.ARCADE;
         bullets.createMultiple(200, 'bullet');
-        bullets.setAll("autoCull", true);
+        bullets.setAll('autoCull', true);
         bullets.setAll('checkWorldBounds', true);
         bullets.setAll('outOfBoundsKill', true);
 
@@ -72,8 +69,11 @@ World.prototype = {
 
         this.camera.follow(player);
 
+
     },
     update: function () {
+        this.game.debug.cameraInfo(this.game.camera, 32, 32);
+
         this.physics.arcade.collide(player, layer);
 
         player.body.velocity.x = 0;
@@ -111,7 +111,7 @@ World.prototype = {
             player.body.velocity.setTo(0, 0);
         }
     },
-    fire: function() {
+    fire: function () {
         if (this.time.now > nextFire && bullets.countDead() > 0) {
             nextFire = this.game.time.now + fireRate;
             var bullet = bullets.getFirstDead();
@@ -120,6 +120,6 @@ World.prototype = {
         }
 
     }
-}
+};
 
 module.exports = World;

@@ -64,6 +64,17 @@ GenerateDungeon.prototype = {
     },
 
     preload: function () {
+        var assetDirectory = 'app/game/assets/';
+
+        var wallAsset = 'wall.png';
+        var dudeAsset = 'dude.png';
+        var diamondAsset = 'diamond.png';
+        var starAsset = 'star.png';
+
+        this.load.image('wall', assetDirectory + wallAsset);
+        this.load.spritesheet('dude', assetDirectory + dudeAsset, 32, 48);
+        this.load.spritesheet('target', assetDirectory + diamondAsset, 32, 28);
+        this.load.image('bullet', assetDirectory + starAsset);
 
     },
     create: function () {
@@ -114,6 +125,11 @@ GenerateDungeon.prototype = {
             drawGraph = false;
 
             this.createCollisionMap();
+        }
+
+        if (this.input.keyboard.isDown(Phaser.KeyCode.Q)) {
+            console.log('q');
+            this.game.state.start("main-menu", true, false);
         }
 
         if (cursors.up.isDown) {

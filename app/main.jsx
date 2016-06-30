@@ -5,17 +5,17 @@ var ReactDOM = require('react-dom');
 var Router = require('react-router').Router;
 var Route = require('react-router').Route;
 var IndexRoute = require('react-router').IndexRoute;
-var MenuBar = require('./components/navigation/menubar.js');
+var MenuBar = require('./components/navigation/menubar');
 var menuData = require('./components/navigation/menudata.json');
 
 //var GameContent = require('./game/game2.js');
-var GameContent = require('./game/game-main.js');
+var GameContent = require('./game/game.jsx');
 
 const App = React.createClass({
     render: function () {
         return (
             <div>
-                <nav className="light-blue darken-1"
+                <nav className="white z-depth-0"
                      role="navigation">
                     <MenuBar
                         items={menuData}/>,
@@ -49,8 +49,8 @@ const Game = new React.createClass({
     render: function() {
         return (
             <GameContent
-                width={720}
-                height={720}>
+                width={640}
+                height={480}>
             </GameContent>
 
         );

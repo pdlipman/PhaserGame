@@ -20,7 +20,9 @@ var MenuItem = React.createClass({
             <li
                 className={activeClass.trim()}
                 onClick={this.handleClick}>
-                    <Link to={this.props.url}>{this.props.text}</Link>
+                    <Link
+                        to={this.props.url}
+                        className="black-text">{this.props.text}</Link>
             </li>
 
         );

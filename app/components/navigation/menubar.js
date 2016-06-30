@@ -46,7 +46,7 @@ var MenuBar = React.createClass({
                 >
                 <Link
                     to={''}
-                    className={'brand-logo'}>{'philipLipman'}
+                    className={'brand-logo black-text'}>{'philipLipman'}
                 </Link>
                 <ul className="right hide-on-small-and-down">
                     {menuItems}

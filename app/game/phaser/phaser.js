@@ -40328,6 +40328,15 @@ Phaser.InputHandler.prototype = {
     },
 
     /**
+     * Returns true if the pointer has touched or clicked on the Sprite within the specified delay time (defaults to 500ms, half a second)
+     *
+     * @method Phaser.InputHandler#justPressed
+     * @param {integer} [pointerId=0]
+     * @param {number} delay - The time below which the pointer is considered as just over.
+     * @return {boolean}
+     */
+
+    /**
     * Returns true if the pointer has left the Sprite within the specified delay time (defaults to 500ms, half a second)
     *
     * @method Phaser.InputHandler#justOut
@@ -40343,15 +40352,6 @@ Phaser.InputHandler.prototype = {
         return (this._pointerData[pointerId].isOut && (this.game.time.time - this._pointerData[pointerId].timeOut < delay));
 
     },
-
-    /**
-    * Returns true if the pointer has touched or clicked on the Sprite within the specified delay time (defaults to 500ms, half a second)
-    *
-    * @method Phaser.InputHandler#justPressed
-    * @param {integer} [pointerId=0]
-    * @param {number} delay - The time below which the pointer is considered as just over.
-    * @return {boolean}
-    */
     justPressed: function (pointerId, delay) {
 
         pointerId = pointerId || 0;
