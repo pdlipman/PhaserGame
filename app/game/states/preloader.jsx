@@ -8,8 +8,9 @@ var Lighting = require('./lighting.jsx');
 
 function Preloader() {
     this.debug = true;
-    //this.debugState = 'space-shooter';
-    this.debugState = 'lighting';
+    this.debugState = 'space-shooter';
+    //this.debugState = 'lighting';
+    //this.debugState = 'generate-dungeon';
 }
 
 Preloader.prototype = {
